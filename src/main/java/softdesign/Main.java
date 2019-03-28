@@ -24,24 +24,29 @@ import simbad.gui.Simbad;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// request antialising so that diagonal lines are not "stairy"
-        System.setProperty("j3d.implicitAntialiasing", "true");
         
+		// Request antialising so that diagonal lines are not "stairy"
+        System.setProperty("j3d.implicitAntialiasing", "true");
+
         // Instance of environment
         Environment environment = new Environment();
-        // create instances of robot
-        Robot robot1 = new Robot(new Vector3d(0, 0, 0), "Robot-1");
-        Robot robot2 = new Robot(new Vector3d(2,  0, 2), "Robot-2");
-        Robot robot3 = new Robot(new Vector3d(-2,  0, -2), "Robot-3");
+
+        // Create instances of robot
+        Robot robot1 = new Robot(new Vector3d(-11, 0, -11), "Robot-1");
+        Robot robot2 = new Robot(new Vector3d(11,  0, -11), "Robot-2");
+        Robot robot3 = new Robot(new Vector3d(-11,  0, 11), "Robot-3");
+        Robot robot4 = new Robot(new Vector3d(11, 0, 11), "Robot-4");
+
         // Add robots into environment
 		environment.add(robot1);
 		environment.add(robot2);
-		environment.add(robot3);
- 
-        //Create instance of simbad simulator
-      	Simbad frame = new Simbad(environment, false);
-      	frame.update(frame.getGraphics());        
-	}
+        environment.add(robot3);
+        environment.add(robot4);
 
+        // Create instance of simbad simulator
+        Simbad frame = new Simbad(environment, false);
+        Utility.addStopButton(frame);
+
+        frame.update(frame.getGraphics());
+	}
 }
