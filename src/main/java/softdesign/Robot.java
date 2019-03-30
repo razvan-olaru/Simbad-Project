@@ -24,23 +24,19 @@ public class Robot extends Agent {
 
 	/* t3d is a 4x4 double-precision floating point matrix, 
 	further used to perform translations and rotations */
-	Transform3D t3d = new Transform3D(); 
-	RangeSensorBelt sonar; // Sensor that measures the distance to an object
-	RangeSensorBelt bumper; // Sensor with boolean values; true if it touches another object.
-	CameraSensor camera; // Camera used to inspect the environment
-	BufferedImage cameraImage; // Image captured by the camera
+	private Transform3D t3d = new Transform3D();
+	private RangeSensorBelt sonar; // Sensor that measures the distance to an object
+	private RangeSensorBelt bumper; // Sensor with boolean values; true if it touches another object.
+	private CameraSensor camera; // Camera used to inspect the environment
+	private BufferedImage cameraImage; // Image captured by the camera
 
 	/* Database which learns a mapping of the environment 
 	by communicating with the robots */
-	CentralStation centralStation;
-	EnvironmentInformation newInfo; // Check newly learned information
-	boolean spotGoal = false; // Boolean value; True if the robot identified the goal on camera 
-	boolean approachingGoal = false; // Boolean value; True if the robot is close to the goal
-	boolean touchGoal = false; // Boolean value; True if the robot reached the goal
-
-	/* SHOULD PROBABLY BE A LOCAL VARIABLE
-	Rotate at certain degrees */
-	double rotation;
+	private CentralStation centralStation;
+	private EnvironmentInformation newInfo; // Check newly learned information
+	private boolean spotGoal = false; // Boolean value; True if the robot identified the goal on camera
+	private boolean approachingGoal = false; // Boolean value; True if the robot is close to the goal
+	private boolean touchGoal = false; // Boolean value; True if the robot reached the goal
 
 	// Robot constructor, including sensors initialisation
 	Robot(Vector3d position, String name) {
@@ -121,7 +117,7 @@ public class Robot extends Agent {
 	The measurement of the robot's orientation is measured in degrees in trigonometric direction (anti clockwise).
 	The method returns the orientation in degree numbers.
 	*/
-	public int getAngle() {
+	private int getAngle() {
 		getRotationTransform(t3d);
 		double[] values = new double[16];
 		t3d.get(values);
@@ -134,7 +130,7 @@ public class Robot extends Agent {
 	}
 
 	// Applies both translational and rotational velocity
-	void setVelocity(double translation, double rotation){
+	private void setVelocity(double translation, double rotation){
 		setTranslationalVelocity(translation);		
 		setRotationalVelocity(rotation);
 	}
@@ -145,7 +141,7 @@ public class Robot extends Agent {
 	bring new information to the central station. More than that, the rover's movement is assigned randomly.
 	If there is no obstacle near the rover, its velocity is fixed.
 	*/
-	void avoidObstacles(){
+	private void avoidObstacles(){
 		double left = sonar.getFrontLeftQuadrantMeasurement();
 		double right = sonar.getFrontRightQuadrantMeasurement();
 		double front = sonar.getFrontQuadrantMeasurement();
@@ -213,19 +209,18 @@ public class Robot extends Agent {
 	from the EnvironmentInformation class will verify possible neighbouring coordinates 
 	that may be updated.
 	*/
-	public void updateDatabase(int value){ 
+	private void updateDatabase(int value){
 		double left = sonar.getQuadrantMeasurement(0.17,Math.PI/2); // from 10 to 90
 		double right = sonar.getQuadrantMeasurement(6.1,3*(Math.PI/2)); // from 350 to 270 
 		double front = sonar.getMeasurement(0);
 
-		Coordinates coordinates = new Coordinates();
 		Point3d coords = new Point3d();
 		getCoords(coords);
-		coordinates.getCoordinatesofX(coords);
-		coordinates.getCoordinatesofY(coords);
+
+		Coordinates coordinates = new Coordinates(coords);
 
 		newInfo.updateMeasurements(left,right,front);
 				
-		newInfo.checkCoordinates(coordinates, value, getAngle());	
+		newInfo.checkCoordinates(coordinates, value, getAngle());
 	}
 }

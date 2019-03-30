@@ -33,7 +33,7 @@ public class CentralStation {
     } 
 
     // Print matrix at run-time
-	public void printMatrix() {
+	private void printMatrix() {
 		for (int i = 0; i < ENV_SIZE; i++) {
 			System.out.print("[ ");
 			for (int j = 0; j < ENV_SIZE; j++) {
@@ -47,16 +47,7 @@ public class CentralStation {
     
     // Update database with the newly learned information
     public void updateCoords(int x, int y, int value) {
-        if (matrix[x][y] == 3)
-        {}
-        if (matrix[x][y] == 4)
-        {}
-        // else if (matrix[x][y] == 1){
-        //     matrix[x][y]  = 2;
-        // }
-        else if (matrix[x][y] == 2)
-        {}
-        else
+        if (matrix[x][y] < 2)
             matrix[x][y] = value;
     }
 

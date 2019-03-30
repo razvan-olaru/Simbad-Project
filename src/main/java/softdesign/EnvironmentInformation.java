@@ -7,12 +7,9 @@ worth checking whether the matrix should be updated with the received value,
 and whether the neighbouring coordinates of the rover should be further inspected.
 */
 public final class EnvironmentInformation {
-    double currentX; // Current known x coordinate of the rover
-	double currentY; // Current known y coordinate of the rover
-	double prevX; // Previously updated x coordinate of the rover
-    double prevY; // Previously updated y coordinate of the rover
-	CentralStation centralStation; // The database to be further updated
-	double [] measurements = new double[3]; // Sonar measurements of the rover
+    private double currentX; // Current known x coordinate of the rover
+	private double currentY; // Current known y coordinate of the rover
+	private double [] measurements = new double[3]; // Sonar measurements of the rover
 	
 	// EnvironmentInformation Constructor
     public EnvironmentInformation() {}
@@ -34,24 +31,20 @@ public final class EnvironmentInformation {
 		-If the new coordinates are different and the value is equal to 3 (therefore, the rover encountered an obstacle),
 		the method will update the database according to the obstacle's position in regard to the rover's sonar sensors. */
     public  void checkCoordinates(Coordinates newCoord, int value, int angle){
-		centralStation = CentralStation.getInstance();
+		CentralStation centralStation = CentralStation.getInstance(); // The database to be further updated
 		
-        if((currentX != newCoord.x) || (currentY != newCoord.y)){
-            if (value != 3) {
-                centralStation.updateCoords(newCoord.x,  newCoord.y, value);
-                prevX = currentX;					
-                prevY = currentY;
-                currentX = newCoord.x;
-                currentY = newCoord.y;
-            }
+        if((currentX != newCoord.x) || (currentY != newCoord.y) && value != 3){
+			centralStation.updateCoords(newCoord.x,  newCoord.y, value);
+			currentX = newCoord.x;
+			currentY = newCoord.y;
 		}
 		
         if(value == 4)
 			centralStation.updateCoords(newCoord.x,  newCoord.y, value);
 
 		if(value == 3){
-			if ((newCoord.x + 1 > -1 && newCoord.x + 1 < 46) && (newCoord.x - 1 > -1 && newCoord.x - 1 < 46 ) &&
-			(newCoord.y + 1 > -1 && newCoord.y + 1 < 46) && (newCoord.y - 1 > -1 && newCoord.y - 1 < 46)){
+			if (newCoord.x -1 > -1 && newCoord.x + 1 < 46 &&
+				newCoord.y -1 > -1 && newCoord.y + 1 < 46) {
 				if(angle > 45 && angle < 135){
 					if (measurements[0] < 0.4){
 						centralStation.updateCoords(newCoord.x - 1, newCoord.y -1,value);

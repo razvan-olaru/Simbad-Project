@@ -16,9 +16,9 @@ The goal of the mission is represented by a red box placed in the middle of the 
 */
 public class Environment extends EnvironmentDescription {
 
-	ArrayList<Wall> Walls = new ArrayList<Wall>(); // Array of external walls
-	ArrayList<Box> Obstacles = new ArrayList<Box>(); // Array of obstacles 
-	Box goal; // Goal which will be searched for by the rovers
+	private ArrayList<Wall> Walls = new ArrayList<>(); // Array of external walls
+	private ArrayList<Box> Obstacles = new ArrayList<>(); // Array of obstacles
+	private Box goal; // Goal which will be searched for by the rovers
 
 	public Environment() {
 
@@ -157,11 +157,9 @@ public class Environment extends EnvironmentDescription {
 		goal = new Box(new Vector3d(0, 0 , 0), new Vector3f(3, 2, 3), this);
 		goal.setColor(new Color3f(Color.RED));
 
-		for (int i = 0; i < Walls.size(); i++)
-			add(Walls.get(i));
+		for (Wall wall : Walls) add(wall);
 
-		for (int i = 0; i < Obstacles.size(); i++)
-			add(Obstacles.get(i));
+		for (Box obstacle : Obstacles) add(obstacle);
 
 		add(goal);
 	}

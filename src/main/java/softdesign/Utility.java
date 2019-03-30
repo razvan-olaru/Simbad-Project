@@ -4,7 +4,6 @@ import javax.swing.JInternalFrame;
 import simbad.gui.Simbad;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -28,16 +27,13 @@ public final class Utility {
         JButton stopButton = new JButton("Stop Mission");
         Font smallFont = new Font("Arial", Font.PLAIN, 11);
         stopButton.setFont(smallFont);
-        ActionListener stopActionListener = new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CentralStation.getInstance().stopMission();
-                JOptionPane.showMessageDialog(null, "Mission Stopped!","Message", JOptionPane.INFORMATION_MESSAGE);
-            }
+        ActionListener stopActionListener = e -> {
+            CentralStation.getInstance().stopMission();
+            JOptionPane.showMessageDialog(null, "Mission Stopped!","Message", JOptionPane.INFORMATION_MESSAGE);
         };
         stopButton.addActionListener(stopActionListener);
         container.add(stopButton);
-        frame.getDesktopPane().add(jframe);  
-        jframe.setVisible(true);   
+        frame.getDesktopPane().add(jframe);
+        jframe.setVisible(true);
     }
 }
