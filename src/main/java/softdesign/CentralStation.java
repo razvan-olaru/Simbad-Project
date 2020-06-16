@@ -32,18 +32,18 @@ public class CentralStation {
         return single_instance;
     } 
 
-    // Print matrix at run-time
-	private void printMatrix() {
-		for (int i = 0; i < ENV_SIZE; i++) {
-			System.out.print("[ ");
-			for (int j = 0; j < ENV_SIZE; j++) {
-				System.out.print(matrix[i][j]);
-				System.out.print(" ");
-			}
-			System.out.println(" ]");
-        }
-        System.out.println();
-	}
+    // // Print matrix at run-time
+	// private void printMatrix() {
+	// 	for (int i = 0; i < ENV_SIZE; i++) {
+	// 		System.out.print("[ ");
+	// 		for (int j = 0; j < ENV_SIZE; j++) {
+	// 			System.out.print(matrix[i][j]);
+	// 			System.out.print(" ");
+	// 		}
+	// 		System.out.println(" ]");
+    //     }
+    //     System.out.println();
+	// }
     
     // Update database with the newly learned information
     public void updateCoords(int x, int y, int value) {
@@ -68,7 +68,7 @@ public class CentralStation {
     public void completeMission() {
         ROBOTS--;
         if (ROBOTS == 0) {
-            printMatrix();
+            // printMatrix();
             JOptionPane.showMessageDialog(null, "Mission Complete!","Message", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("Success");
         }

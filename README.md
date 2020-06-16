@@ -4,7 +4,7 @@ A skeleton with Simbad and its dependencies configured. Import it as usual in Ec
 
 Start working under package src.main.java.softdesign
 
-### Some resources:
+## Some resources:
 
 * [https://github.com/jimmikaelkael/simbad/tree/master/src](https://github.com/jimmikaelkael/simbad/tree/master/src)
 * [https://www.ibm.com/developerworks/java/library/j-robots/](https://www.ibm.com/developerworks/java/library/j-robots/)
